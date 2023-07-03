@@ -8,6 +8,8 @@ This is the launcher for open tibia servers. It installs the client in %appdata%
 
 It only installs what's in `client.json` and `asset.json` and only downloads files that need updating instead of a whole package. This makes it very fast and efficient. It also makes it so the client can receive updates without any risk of overriding user settings.
 
+Note that these files are compatible with CIP's `package.json` and `assets.json`. If you're repacking a CIP client, you can use the same files, just rename `package.json` to `client.json`. We renamed it to avoid confusion with the node's `package.json` (used elsewhere in the app).
+
 The launcher itself also updates automatically, so you don't have to worry about it. All you need is to have the URL serving the launcher also have the following files alongside the [client](https://github.com/luan/tibia-client).
 
 - Slender.mac (for MacOS) + Slender.mac.sha256
