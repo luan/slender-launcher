@@ -6,6 +6,14 @@ This is the launcher for open tibia servers. It installs the client in %appdata%
 - MacOS: `~/Library/Application Support/Slender`
 - Linux: `~/.config/Slender`
 
+It only installs what's in `client.json` and `asset.json` and only downloads files that need updating instead of a whole package. This makes it very fast and efficient. It also makes it so the client can receive updates without any risk of overriding user settings.
+
+The launcher itself also updates automatically, so you don't have to worry about it. All you need is to have the URL serving the launcher also have the following files alongside the [client](https://github.com/luan/tibia-client).
+
+- Slender.mac (for MacOS) + Slender.mac.sha256
+- Slender.exe (for Windows) + Slender.exe.sha256
+- Slender (for Linux) + Slender.sha256
+
 ## Features
 
 - [x] Windows
