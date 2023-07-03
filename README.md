@@ -43,7 +43,7 @@ Look for baseURL in `main.go` and change it to a URL that can serve your game cl
 
 <img width="761" alt="image" src="https://github.com/luan/slender-launcher/assets/223760/f49993e4-d107-470e-ae78-5fb68176a180">
 
-<img width="761" alt="image" src="https://github.com/luan/slender-launcher/assets/223760/479cec63-b314-4db8-97b1-5c8632a2cd12">
+<img width="761" alt="image" src="https://github.com/luan/slender-launcher/assets/223760/f18d87d8-cc00-44a8-b4b9-d39123e6bbe9">
 
 <img width="761" alt="image" src="https://github.com/luan/slender-launcher/assets/223760/0a44735c-1f87-4e40-8a82-e80c4c48c041">
 
