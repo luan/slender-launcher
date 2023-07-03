@@ -1,6 +1,10 @@
 # Slender Launcher
 
-This is the launcher for open tibia servers.
+This is the launcher for open tibia servers. It installs the client in %appdata% so you'll find it at:
+
+- Windows: `%appdata%/Slender` (`C:\Users\{username}\AppData\Roaming\Slender`)
+- MacOS: `~/Library/Application Support/Slender`
+- Linux: `~/.config/Slender`
 
 ## Features
 
