@@ -293,25 +293,40 @@ func (a *App) appDirectory() string {
 
 func (a *App) filesToUpdate() ([]File, error) {
 	var files []File
+	filesTocheck := append(a.assetsInfo.Files, a.clientInfo.Files...)
 
-	for _, file := range append(a.assetsInfo.Files, a.clientInfo.Files...) {
-		localFilePath := filepath.Join(a.appDirectory(), file.LocalFile)
-		if !fileExists(localFilePath) {
-			a.logger.Infof("File %s does not exist", localFilePath)
-			files = append(files, file)
-		} else {
-			localHash, err := sha256Sum(localFilePath)
-			if err != nil {
-				a.logger.Errorf("Error reading local file: %s\n", err)
-				continue
-			}
+	mutex := sync.Mutex{}
+	wg := sync.WaitGroup{}
+	wg.Add(len(filesTocheck))
 
-			if localHash != file.UnpackedHash {
-				a.logger.Infof("File %s has changed (local: %s, remote: %s)", localFilePath, string(localHash), file.UnpackedHash)
+	for _, file := range filesTocheck {
+		go func(file File) {
+			defer wg.Done()
+
+			localFilePath := filepath.Join(a.appDirectory(), file.LocalFile)
+			if !fileExists(localFilePath) {
+				a.logger.Infof("File %s does not exist", localFilePath)
+				mutex.Lock()
 				files = append(files, file)
+				mutex.Unlock()
+			} else {
+				localHash, err := sha256Sum(localFilePath)
+				if err != nil {
+					a.logger.Errorf("Error reading local file: %s\n", err)
+					return
+				}
+
+				if localHash != file.UnpackedHash {
+					a.logger.Infof("File %s has changed (local: %s, remote: %s)", localFilePath, string(localHash), file.UnpackedHash)
+					mutex.Lock()
+					files = append(files, file)
+					mutex.Unlock()
+				}
 			}
-		}
+		}(file)
 	}
+
+	wg.Wait()
 
 	return files, nil
 }
