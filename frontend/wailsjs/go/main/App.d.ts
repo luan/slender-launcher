@@ -19,6 +19,8 @@ export function NeedsUpdate():Promise<boolean>;
 
 export function OS():Promise<string>;
 
+export function OpenClientLocation():Promise<void>;
+
 export function Play(arg1:boolean):Promise<void>;
 
 export function Revision():Promise<number>;

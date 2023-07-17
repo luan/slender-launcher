@@ -38,6 +38,10 @@ export function OS() {
   return window['go']['main']['App']['OS']();
 }
 
+export function OpenClientLocation() {
+  return window['go']['main']['App']['OpenClientLocation']();
+}
+
 export function Play(arg1) {
   return window['go']['main']['App']['Play'](arg1);
 }

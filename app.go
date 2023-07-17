@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -81,6 +82,17 @@ func NewApp(logger *logrus.Logger, baseURL string, appName string, parallel int)
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+}
+
+func (a *App) OpenClientLocation() {
+	fmt.Println("Opening client location")
+	if runtime.GOOS == "darwin" {
+		exec.Command("open", a.appDirectory()).Start()
+	} else if runtime.GOOS == "windows" {
+		exec.Command("explorer", a.appDirectory()).Start()
+	} else if runtime.GOOS == "linux" {
+		exec.Command("xdg-open", a.appDirectory()).Start()
+	}
 }
 
 func (a *App) Exit() {

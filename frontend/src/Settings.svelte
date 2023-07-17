@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import BackIcon from "./BackIcon.svelte";
-  import { LocalEnabled, ToggleLocal } from "../wailsjs/go/main/App.js";
+  import { LocalEnabled, OpenClientLocation, ToggleLocal } from "../wailsjs/go/main/App.js";
 
   export let closeSettings: () => void;
 
@@ -11,6 +11,11 @@
     localEnabled = await LocalEnabled();
   });
 
+  function openClientLocation() {
+    console.log("openClientLocation")
+    OpenClientLocation();
+  }
+
   $: if (localEnabled !== undefined) ToggleLocal(localEnabled);
 </script>
 
@@ -19,13 +24,15 @@
 </button>
 <div>
   <h1>Settings</h1>
+  <button class="client" on:click={openClientLocation}>Open client location</button>
+
   <label>
     <input
       type="checkbox"
       bind:checked={localEnabled}
       disabled={localEnabled === undefined}
     />
-    <span>Enable Local client<br /><em>(advanced, for developer use)</em></span>
+    <span>Enable local client<br /><em>(advanced, for developer use)</em></span>
   </label>
 </div>
 
@@ -35,6 +42,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
   }
 
   label {
@@ -83,5 +91,10 @@
     align-items: center;
     justify-content: center;
     box-shadow: none;
+  }
+
+  button.client {
+    background-color: #4e3bf5;
+    height: auto;
   }
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Select from 'svelte-select';
   import logo from "./assets/images/logo-universal.png";
   import {
     ActiveDownload,
@@ -44,8 +45,8 @@
     revision = await Revision();
     version = await Version();
     needsUpdate = await NeedsUpdate();
-    hasLocal = await LocalEnabled();
     ready = true;
+    hasLocal = await LocalEnabled();
   });
 
   function update() {
@@ -127,9 +128,18 @@
     ready = false;
     Play(true);
   }
+
+  const mapTypes = [
+    { value: 0, label: 'Full w/ markers' },
+    { value: 1, label: 'Full w/o markers' },
+    { value: 2, label: 'Overlayed w/ markers' },
+    { value: 3, label: 'Overlayed w/o markers' },
+    { value: 4, label: 'Overlayed w/ markers (+PoI)' },
+  ]
+
 </script>
 
-<button class="settings" on:click={openSettings}>
+<button class="settings" on:click={openSettings} disabled={updating}>
   <SettingsIcon />
 </button>
 <div>
@@ -187,16 +197,12 @@
     </div>
     <div class="maps">
       <h3>Maps</h3>
-      <select bind:value={mapKind}>
-        <option value={0}>Full w/ markers</option>
-        <option value={1}>Full w/o markers</option>
-        <option value={2}>Overlayed w/ markers</option>
-        <option value={3}>Overlayed w/o markers</option>
-        <option value={4}>Overlayed w/ markers (+PoI)</option>
-      </select>
+      <div class="map-select">
+        <Select bind:value={mapKind} items={mapTypes} />
+      </div>
       <button disabled={!ready || needsUpdate} on:click={downloadMaps}>
         <DownloadIcon />
-        Download Maps
+        Download + Install Maps
       </button>
     </div>
   </div>
@@ -268,7 +274,7 @@
     cursor: pointer;
     padding: 8px;
     width: 200px;
-    height: 56px;
+    height: 74px;
     color: white;
     border-radius: 8px;
     box-shadow: #333333 0px 0px 4px 0px;
@@ -321,6 +327,16 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+
+  .map-select {
+    width: 200px;
+    --border-radius: 16px;
+    --list-border-radius: 16px;
+    --item-color: #4e3bf5;
+    --item-hover-color: #4e3bf5;
+    --placeholder-color: #4e3bf5;
+    --selected-item-color: #4e3bf5;
   }
 
   h3 {
