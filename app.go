@@ -261,6 +261,7 @@ func (a *App) DownloadMaps(kind int) {
 	a.downloadedBytes = 0
 	a.totalFiles = 1
 	a.downloadedFiles = 0
+	a.logger.Infof("Downloading %s", mapKinds[kind])
 	err := a.downloadZip(mapKinds[kind], mapLocations[a.OS()], true)
 	if err != nil {
 		a.logger.Errorf("Error downloading %s: %v", mapKinds[kind], err)

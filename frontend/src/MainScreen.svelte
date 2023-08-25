@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Select from 'svelte-select';
+  import Select from "svelte-select";
   import logo from "./assets/images/logo-universal.png";
   import {
     ActiveDownload,
@@ -74,6 +74,7 @@
   }
 
   function downloadMaps() {
+    if (mapKind == null) return;
     totalFiles = 0;
     totalBytes = 0;
     downloadedBytes = 0;
@@ -130,13 +131,12 @@
   }
 
   const mapTypes = [
-    { value: 0, label: 'Full w/ markers' },
-    { value: 1, label: 'Full w/o markers' },
-    { value: 2, label: 'Overlayed w/ markers' },
-    { value: 3, label: 'Overlayed w/o markers' },
-    { value: 4, label: 'Overlayed w/ markers (+PoI)' },
-  ]
-
+    { value: 0, label: "Full w/ markers" },
+    { value: 1, label: "Full w/o markers" },
+    { value: 2, label: "Overlayed w/ markers" },
+    { value: 3, label: "Overlayed w/o markers" },
+    { value: 4, label: "Overlayed w/ markers (+PoI)" },
+  ];
 </script>
 
 <button class="settings" on:click={openSettings} disabled={updating}>
@@ -198,7 +198,7 @@
     <div class="maps">
       <h3>Maps</h3>
       <div class="map-select">
-        <Select bind:value={mapKind} items={mapTypes} />
+        <Select bind:justValue={mapKind} items={mapTypes} />
       </div>
       <button disabled={!ready || needsUpdate} on:click={downloadMaps}>
         <DownloadIcon />
