@@ -35,7 +35,7 @@ The launcher itself also updates automatically, so you don't have to worry about
 ## How to use
 
 You'll have to modify some code to make it work for your server. The launcher is not ready to be used for any server, but it's easy to modify it.
-Look for baseURL in `main.go` and change it to a URL that can serve your game client. The client needs to be repacked in the correct format, you can use this [client-editor](https://github.com/luan/client-editor) to do that. Checkout https://github.com/luan/tibia-client for an example packed client.
+Look for baseURL in `main.go` and change it to a URL that can serve your game client. The client needs to be repacked in the correct format, you can use this [client-editor](https://github.com/opentibiabr/client-editor) to do that. Checkout https://github.com/luan/tibia-client for an example packed client.
 
 ## Screenshots
 
